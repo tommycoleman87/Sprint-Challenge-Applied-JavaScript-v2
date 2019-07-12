@@ -21,17 +21,24 @@
 axios.get('https://lambda-times-backend.herokuapp.com/articles')
 .then(data => {
     const jsArticles = data.data.articles.javascript
+    jsArticles.data = 'javascript';
     const bootStrapArticles = data.data.articles.bootstrap;
+    bootStrapArticles.data = 'bootstrap';
     const techArticles = data.data.articles.technology;
+    techArticles.data = 'technology';
     const jqueryArticles = data.data.articles.jquery;
+    jqueryArticles.data = 'jquery';
     const nodeArticles = data.data.articles.node
+    nodeArticles.data = 'node.js';
 
     const articles = [jsArticles, bootStrapArticles, techArticles, jqueryArticles, nodeArticles]
 
     articles.forEach(article => {
         article.forEach(art => {
             const cards = document.querySelector('.cards-container');
-            cards.appendChild(Article(art));
+            const card = Article(art);
+            card.setAttribute('data-tab', article.data);
+            cards.appendChild(card);
         })
     })
     console.log('Success', data);
