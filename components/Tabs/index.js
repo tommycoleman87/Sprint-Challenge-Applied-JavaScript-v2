@@ -31,19 +31,24 @@ function Tab(topic) {
     topicDiv.addEventListener('click', event => {
         const cards = document.querySelectorAll('.card');
         const tabs = document.querySelectorAll('.active-tab');
-        topicDiv.classList.add('active-tab');
+        topicDiv.classList.toggle('active-tab');
         tabs.forEach(tab => {
             tab.classList.remove('active-tab');
         })
 
-        cards.forEach(card => {
+        if(topicDiv.classList.contains('active-tab')){
+            cards.forEach(card => {
             if(card.dataset.tab === topic) {
                 card.style.display = 'flex';
             } else {
                 card.style.display = 'none';
             }
                
-        })
+        }) } else {
+            cards.forEach(card => {
+                card.style.display = 'flex';
+            })
+        }
     })
 
     return topicDiv;
