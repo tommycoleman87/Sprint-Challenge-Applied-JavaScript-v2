@@ -20,7 +20,7 @@
 
 axios.get('https://lambda-times-backend.herokuapp.com/articles')
 .then(data => {
-    const jsArticles = data.data.articles.javascript
+    /*const jsArticles = data.data.articles.javascript
     jsArticles.data = 'javascript';
     const bootStrapArticles = data.data.articles.bootstrap;
     bootStrapArticles.data = 'bootstrap';
@@ -29,19 +29,21 @@ axios.get('https://lambda-times-backend.herokuapp.com/articles')
     const jqueryArticles = data.data.articles.jquery;
     jqueryArticles.data = 'jquery';
     const nodeArticles = data.data.articles.node
-    nodeArticles.data = 'node.js';
+    nodeArticles.data = 'node.js';*/
 
-    const articles = [jsArticles, bootStrapArticles, techArticles, jqueryArticles, nodeArticles]
+    const articles = Object.values(data.data.articles)
+    const artData = Object.keys(data.data.articles)
 
-    articles.forEach(article => {
-        article.forEach(art => {
+    articles.forEach(articleType => {
+        articleType.forEach(article => {
+            const index = articles.indexOf(articleType);
             const cards = document.querySelector('.cards-container');
-            const card = Article(art);
-            card.setAttribute('data-tab', article.data);
+            const card = Article(article);
+            card.setAttribute('data-tab', artData[index]);
             cards.appendChild(card);
         })
     })
-    console.log('Success', data);
+    console.log('Success', artData);
 })
 .catch(error => {
     console.log("ERROR", error);

@@ -38,7 +38,7 @@ function Tab(topic) {
 
         if(topicDiv.classList.contains('active-tab')){
             cards.forEach(card => {
-            if(card.dataset.tab === topic) {
+            if(topicDiv.dataset.tab.includes(card.dataset.tab)) {
                 card.style.display = 'flex';
             } else {
                 card.style.display = 'none';
